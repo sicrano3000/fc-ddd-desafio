@@ -1,9 +1,10 @@
 import Order from "../../../../domain/checkout/entity/order";
 import OrderItem from "../../../../domain/checkout/entity/order_item";
+import OrderRepositoryInterface from "../../../../domain/checkout/repository/order-repository.interface";
 import OrderItemModel from "./order-item.model";
 import OrderModel from "./order.model";
 
-export default class OrderRepository {
+export default class OrderRepository implements OrderRepositoryInterface {
   async create(entity: Order): Promise<void> {
     await OrderModel.create(
       {
@@ -60,14 +61,6 @@ export default class OrderRepository {
         },
       },
     )
-  }
-
-  async deleteOrderItem(orderItemId: string): Promise<void> {
-    await OrderItemModel.destroy({
-      where: {
-        id: orderItemId,
-      }
-    })
   }
 
   async find(id: string): Promise<Order> {
